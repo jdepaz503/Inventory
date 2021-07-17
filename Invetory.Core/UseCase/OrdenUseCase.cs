@@ -22,5 +22,7 @@ namespace Invetory.Core.UseCase
         public async Task<OrdenesResponse> GetOrder(int id) => await repository.GetOrder(id);
         public OrdenesResponse MakeOrder(RegistrarOrden orden) => repository.MakeOrder(orden);
 
+        public OrdenesResponse ManageOrder(int idOrder) => repository.ManageOrder(idOrder);
+
     }
 }

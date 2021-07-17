@@ -33,7 +33,6 @@ namespace Inventory.Controllers
             return item;
         }
 
-
         [HttpGet]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/ObtenerOrden")]
@@ -52,45 +51,13 @@ namespace Inventory.Controllers
             return item;
         }
 
-
-        //[HttpPut]
-        //[ApiVersion("1.0")]
-        //[Route("~/api/v{version:ApiVersion}/AnularOrden")]
-        //public async Task<IActionResult> ManageOrders(int id)
-        //{
-        //    if (id == 0)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(orden).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!OrdenExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-
-
-
-
-        //private bool OrdenExists(int id)
-        //{
-        //    return _context.Orden.Any(e => e.IdOrden == id);
-        //}
+        [HttpPost]
+        [ApiVersion("1.0")]
+        [Route("~/api/v{version:ApiVersion}/AnularOrden")]
+        public OrdenesResponse ManageOrders(int idOrder)
+        {
+            var item = useCase.ManageOrder(idOrder);
+            return item;
+        }
     }
 }

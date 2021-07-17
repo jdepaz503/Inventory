@@ -68,11 +68,9 @@ namespace Inventory.Infraestructure.Repositories
 
         public OrdenesResponse MakeOrder(RegistrarOrden orden)
         {
-            //ProductosResponse response = new ProductosResponse();
             OrdenesResponse OrderResponse = new OrdenesResponse();
-            int noOrden = 0;
 
-            if (orden.Cantidad !=0 && orden.Sku != 0 && orden.Estatus!=null)
+            if (orden.Cantidad != 0 && orden.Sku != 0 && orden.Estatus != null)
             {
                 try
                 {
@@ -92,12 +90,11 @@ namespace Inventory.Infraestructure.Repositories
                     {
                         while (reader.Read())
                         {
-                            OrderResponse.IdOrden= Int32.Parse(reader["IdOrden"].ToString());
-                            OrderResponse.Sku= Int32.Parse(reader["SKU"].ToString());
-                            OrderResponse.Cantidad= Int32.Parse(reader["Cantidad"].ToString());
+                            OrderResponse.IdOrden = Int32.Parse(reader["IdOrden"].ToString());
+                            OrderResponse.Sku = Int32.Parse(reader["SKU"].ToString());
+                            OrderResponse.Cantidad = Int32.Parse(reader["Cantidad"].ToString());
                             OrderResponse.FechaIngreso = Convert.ToDateTime(reader["FechaIngreso"].ToString());
                             OrderResponse.Estado = reader["Estado"].ToString();
-                            noOrden = Int32.Parse(reader["IdOrden"].ToString());
                         }
                     }
                     conn.Close();
@@ -114,6 +111,48 @@ namespace Inventory.Infraestructure.Repositories
                 return OrderResponse;
             }
 
+        }
+
+        public OrdenesResponse ManageOrder(int idOrder)
+        {
+            ProductosResponse response = new ProductosResponse();
+            OrdenesResponse OrderResponse = new OrdenesResponse();
+            if (idOrder != 0)
+            {
+                try
+                {
+                    MySqlConnection conn = new MySqlConnection();
+                    conn.ConnectionString = db.Database.GetDbConnection().ConnectionString;
+                    MySqlCommand cmd = new MySqlCommand();
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "MANAGEORDERS";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IDORDER_IN", idOrder);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderResponse.IdOrden = Int32.Parse(reader["IdOrden"].ToString());
+                            OrderResponse.Sku = Int32.Parse(reader["SKU"].ToString());
+                            OrderResponse.Cantidad = Int32.Parse(reader["Cantidad"].ToString());
+                            OrderResponse.FechaIngreso = Convert.ToDateTime(reader["FechaIngreso"].ToString());
+                            OrderResponse.Estado = reader["Estado"].ToString();
+                        }
+                    }
+                    conn.Close();
+                    return OrderResponse;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                return OrderResponse;
+            }
         }
     }
 }

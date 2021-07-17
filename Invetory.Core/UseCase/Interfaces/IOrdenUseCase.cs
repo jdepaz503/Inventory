@@ -12,5 +12,6 @@ namespace Invetory.Core.UseCase.Interfaces
         Task<List<OrdenesResponse>> GetOrders();
         Task<OrdenesResponse> GetOrder(int id);
         OrdenesResponse MakeOrder(RegistrarOrden orden);
+        OrdenesResponse ManageOrder(int idOrder);
     }
 }
