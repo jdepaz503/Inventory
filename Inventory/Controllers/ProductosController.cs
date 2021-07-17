@@ -33,8 +33,10 @@ namespace Inventory.Controllers
         [HttpPost]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/AgregarProducto")]
-        public void AddProduct([FromBody] string value)
+        public async Task<string> AddProduct([FromBody] RegistrarProductoResponse producto)
         {
+            var item = await useCase.AddProduct(producto);
+            return item;
         }
 
         // PUT api/<ProductosController>/5
@@ -47,10 +49,6 @@ namespace Inventory.Controllers
             return item;
         }
 
-        // DELETE api/<ProductosController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }

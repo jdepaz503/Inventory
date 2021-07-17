@@ -43,6 +43,27 @@ namespace Inventory.Infraestructure.Repositories
             }
         }
 
+        public async Task<string> AddProduct(RegistrarProductoResponse producto)
+        {
+            if (producto.Descripcion != null && producto.Descripcion != "")
+            {
+                try
+                {
+                    await db.Database.ExecuteSqlRawAsync("INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('" + producto.Descripcion + "','0');");
+                    return "OK";
+
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                    throw ex;
+                }
+            }
+            else {
+                return "Falta descripción";
+            }
+            
+        }
 
         public async Task<ProductosResponse> PutProducto(UpdateProducto producto)
         {
