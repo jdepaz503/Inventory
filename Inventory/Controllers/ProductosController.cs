@@ -47,8 +47,8 @@ namespace Inventory.Controllers
             return item;
         }
 
-        // PUT api/<ProductosController>/5
-        [HttpPut]
+
+        [HttpPost]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/ActualizarProducto")]
         public async Task<ProductosResponse> PutProduct([FromBody] UpdateProducto producto)
