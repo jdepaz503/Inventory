@@ -18,6 +18,7 @@ namespace Invetory.Core.UseCase
         }
 
         public async Task<List<ProductosResponse>> GetProducts()=> await repository.GetProducts();
+        public async Task<ProductosResponse> GetProduct(int id) => await repository.GetProduct(id);
         public async Task<string> AddProduct(RegistrarProductoResponse producto) => await repository.AddProduct(producto);
         public async Task<ProductosResponse> PutProducto(UpdateProducto producto) => await repository.PutProducto(producto);
 

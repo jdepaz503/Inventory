@@ -43,6 +43,27 @@ namespace Inventory.Infraestructure.Repositories
             }
         }
 
+        public async Task<ProductosResponse> GetProduct(int id)
+        {
+            ProductosResponse response = new ProductosResponse();
+            if (id != 0)
+            {
+                try
+                {
+                    var productolist = await db.Producto.FindAsync(id);
+                    response = map.Map<ProductosResponse>(productolist);
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{ex.Message} {ex.InnerException?.Message}");
+                    throw;
+                }
+            }
+            return response;
+        }
+
+
         public async Task<string> AddProduct(RegistrarProductoResponse producto)
         {
             if (producto.Descripcion != null && producto.Descripcion != "")

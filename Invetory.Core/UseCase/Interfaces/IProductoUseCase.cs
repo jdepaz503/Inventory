@@ -9,6 +9,7 @@ namespace Invetory.Core.UseCase.Interfaces
     public interface IProductoUseCase
     {
         Task<List<ProductosResponse>> GetProducts();
+        Task<ProductosResponse> GetProduct(int id);
         Task<string> AddProduct(RegistrarProductoResponse producto);
         Task<ProductosResponse> PutProducto(UpdateProducto producto);
     }

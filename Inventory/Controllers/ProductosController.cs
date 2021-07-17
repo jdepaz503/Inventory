@@ -30,6 +30,16 @@ namespace Inventory.Controllers
             return item;
         }
 
+        [HttpGet]
+        [ApiVersion("1.0")]
+        [Route("~/api/v{version:ApiVersion}/ObtenerProducto")]
+        public async Task<ProductosResponse> GetProduct(int id)
+        {
+            var item = await useCase.GetProduct(id);
+            return item;
+        }
+
+
         [HttpPost]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/AgregarProducto")]
