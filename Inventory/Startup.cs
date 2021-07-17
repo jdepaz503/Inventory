@@ -44,7 +44,7 @@ namespace Inventory
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Johnny's API",
-                    Version = "v1",
+                    Version = "v1.0",
                     Contact = new OpenApiContact() { Name = "Johnny De Paz", Email = "jdepaz2012@gmail.com" }
                 });
                 c.SchemaFilter<EnumSchemaFilter>();

@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Inventory.Controllers
 {
     [Route("api/[controller]")]
@@ -43,7 +41,7 @@ namespace Inventory.Controllers
         [HttpPost]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/AgregarProducto")]
-        public async Task<string> AddProduct([FromBody] RegistrarProductoResponse producto)
+        public async Task<List<ProductosResponse>> AddProduct([FromBody] RegistrarProductoResponse producto)
         {
             var item = await useCase.AddProduct(producto);
             return item;

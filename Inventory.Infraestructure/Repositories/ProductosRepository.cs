@@ -64,24 +64,26 @@ namespace Inventory.Infraestructure.Repositories
         }
 
 
-        public async Task<string> AddProduct(RegistrarProductoResponse producto)
+        public async Task<List<ProductosResponse>> AddProduct(RegistrarProductoResponse producto)
         {
+            List<ProductosResponse> response = new List<ProductosResponse>();
             if (producto.Descripcion != null && producto.Descripcion != "")
             {
                 try
                 {
                     await db.Database.ExecuteSqlRawAsync("INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('" + producto.Descripcion + "','0');");
-                    return "OK";
+                    IList<Producto> product = await db.Producto.ToListAsync();
+                    response = map.Map<List<ProductosResponse>>(product.ToList());
+                    return response;
 
                 }
                 catch (Exception ex)
                 {
-                    return ex.Message;
                     throw ex;
                 }
             }
             else {
-                return "Falta descripción";
+                return response;
             }
             
         }

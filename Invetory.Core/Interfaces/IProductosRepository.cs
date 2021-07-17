@@ -9,7 +9,7 @@ namespace Invetory.Core.Interfaces
         Task<List<ProductosResponse>> GetProducts();
         Task<ProductosResponse> GetProduct(int id);
 
-        Task<string> AddProduct(RegistrarProductoResponse producto);
+        Task<List<ProductosResponse>> AddProduct(RegistrarProductoResponse producto);
 
         Task<ProductosResponse> PutProducto(UpdateProducto producto);
 
