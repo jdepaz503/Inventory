@@ -35,7 +35,9 @@ namespace Inventory
 
             //Inyección de dependencias
             services.AddTransient<IProductosRepository, ProductosRepository>();
+            services.AddTransient<IOrdenesRepository, OrdenesRepository>();
             services.AddTransient<IProductoUseCase, ProductoUseCase>();
+            services.AddTransient<IOrdenUseCase, OrdenUseCase>();
 
             services.AddSwaggerGen(c =>
             {

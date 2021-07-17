@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using Inventory.Infraestructure.Models;
+using Invetory.Core.Domains.Ordenes;
 using Invetory.Core.Domains.Productos;
 
 namespace Inventory.Infraestructure.Mapper
@@ -12,6 +13,7 @@ namespace Inventory.Infraestructure.Mapper
         public UserProfile()
         {
             CreateMap<Producto,ProductosResponse>();
+            CreateMap<Orden,OrdenesResponse>();
         }
         
     }
