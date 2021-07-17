@@ -10,6 +10,6 @@ namespace Invetory.Core.Domains.Ordenes
         public int Sku { get; set; }
         public int Cantidad { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public string Status { get; set; }
+        public string Estado { get; set; }
     }
 }

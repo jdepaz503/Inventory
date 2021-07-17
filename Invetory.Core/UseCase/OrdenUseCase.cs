@@ -1,4 +1,5 @@
 ﻿using Invetory.Core.Domains.Ordenes;
+using Invetory.Core.Domains.Productos;
 using Invetory.Core.Interfaces;
 using Invetory.Core.UseCase.Interfaces;
 using System;
@@ -18,6 +19,8 @@ namespace Invetory.Core.UseCase
         }
 
         public async Task<List<OrdenesResponse>> GetOrders()=> await repository.GetOrders();
+        public async Task<OrdenesResponse> GetOrder(int id) => await repository.GetOrder(id);
+        public OrdenesResponse MakeOrder(RegistrarOrden orden) => repository.MakeOrder(orden);
 
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Inventory.Infraestructure.Models;
 using Invetory.Core.Domains.Ordenes;
 using Invetory.Core.UseCase.Interfaces;
+using Invetory.Core.Domains.Productos;
 
 namespace Inventory.Controllers
 {
@@ -33,20 +34,23 @@ namespace Inventory.Controllers
         }
 
 
-        //[HttpGet]
-        //[ApiVersion("1.0")]
-        //[Route("~/api/v{version:ApiVersion}/ObtenerOrden")]
-        //public async Task<ActionResult<Orden>> GetOrden(int id)
-        //{
-        //    var orden = await _context.Orden.FindAsync(id);
+        [HttpGet]
+        [ApiVersion("1.0")]
+        [Route("~/api/v{version:ApiVersion}/ObtenerOrden")]
+        public async Task<OrdenesResponse> GetOrder(int id)
+        {
+            var item = await useCase.GetOrder(id);
+            return item;
+        }
 
-        //    if (orden == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return orden;
-        //}
+        [HttpPost]
+        [ApiVersion("1.0")]
+        [Route("~/api/v{version:ApiVersion}/CrearOrden")]
+        public OrdenesResponse MakeOrder(RegistrarOrden orden)
+        {
+            var item = useCase.MakeOrder(orden);
+            return item;
+        }
 
 
         //[HttpPut]
@@ -54,7 +58,7 @@ namespace Inventory.Controllers
         //[Route("~/api/v{version:ApiVersion}/AnularOrden")]
         //public async Task<IActionResult> ManageOrders(int id)
         //{
-        //    if (id ==0)
+        //    if (id == 0)
         //    {
         //        return BadRequest();
         //    }
@@ -81,16 +85,7 @@ namespace Inventory.Controllers
         //}
 
 
-        //[HttpPost]
-        //[ApiVersion("1.0")]
-        //[Route("~/api/v{version:ApiVersion}/CrearOrden")]
-        //public async Task<ActionResult<Orden>> MakeOrders(Orden orden)
-        //{
-        //    _context.Orden.Add(orden);
-        //    await _context.SaveChangesAsync();
 
-        //    return CreatedAtAction("GetOrden", new { id = orden.IdOrden }, orden);
-        //}
 
 
         //private bool OrdenExists(int id)

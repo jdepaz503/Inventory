@@ -20,11 +20,6 @@ namespace Inventory.Infraestructure.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=123456;database=inventorydb", x => x.ServerVersion("8.0.25-mysql"));
-//            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,15 +34,15 @@ namespace Inventory.Infraestructure.Models
                 entity.HasIndex(e => e.Sku)
                     .HasName("SKU_idx");
 
-                entity.Property(e => e.FechaIngreso).HasColumnType("date");
-
-                entity.Property(e => e.Sku).HasColumnName("SKU");
-
-                entity.Property(e => e.Status)
+                entity.Property(e => e.Estado)
                     .IsRequired()
                     .HasColumnType("varchar(45)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.FechaIngreso).HasColumnType("date");
+
+                entity.Property(e => e.Sku).HasColumnName("SKU");
 
                 entity.HasOne(d => d.SkuNavigation)
                     .WithMany(p => p.Orden)
@@ -72,8 +67,6 @@ namespace Inventory.Infraestructure.Models
                     .HasCollation("utf8mb4_0900_ai_ci");
             });
 
-            //modelBuilder.Entity<Producto>().HasNoKey();
-            //_context.Set<MyModel>().FromSqlRaw("CALL My_USP({0});", parametervalue).ToList<MyModel>();
             OnModelCreatingPartial(modelBuilder);
         }
 

@@ -26,9 +26,9 @@ ADD CONSTRAINT SKU
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('Ryzen 7 3600x', '20');
-INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('Intel Core i9 1000', '10');
-INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('GPU Gigabyte RTX 3600', '5');
+INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('Ryzen 7 3600x', '0');
+INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('Intel Core i9 1000', '0');
+INSERT INTO inventorydb.producto (Descripcion, Stock) VALUES ('GPU Gigabyte RTX 3600', '0');
 
 /*
 INGRESO  +
@@ -55,6 +55,7 @@ SELECT * FROM PRODUCTO WHERE SKU = SKU_IN;
 END //
 DELIMITER ;
 
+CALL MAKEORDERS(1, 10, "INGRESO");
 CALL MAKEORDERS(5, 1, "SALIDA");
 
 DELIMITER //
@@ -83,5 +84,5 @@ SELECT * FROM PRODUCTO WHERE SKU = @SKU;
 END //
 DELIMITER ;
 
-CALL MANAGEORDERS(12);
+CALL MANAGEORDERS(2);
 

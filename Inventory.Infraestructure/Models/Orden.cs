@@ -9,7 +9,7 @@ namespace Inventory.Infraestructure.Models
         public int Sku { get; set; }
         public int Cantidad { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public string Status { get; set; }
+        public string Estado { get; set; }
 
         public virtual Producto SkuNavigation { get; set; }
     }
