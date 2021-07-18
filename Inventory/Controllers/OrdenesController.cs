@@ -36,7 +36,7 @@ namespace Inventory.Controllers
         [HttpGet]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/ObtenerOrden")]
-        public async Task<OrdenesResponse> GetOrder(int id)
+        public async Task<OrdenesResponse> GetOrder([FromBody] int id)
         {
             var item = await useCase.GetOrder(id);
             return item;
@@ -45,7 +45,7 @@ namespace Inventory.Controllers
         [HttpPost]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/CrearOrden")]
-        public OrdenesResponse MakeOrder(RegistrarOrden orden)
+        public OrdenesResponse MakeOrder([FromBody] RegistrarOrden orden)
         {
             var item = useCase.MakeOrder(orden);
             return item;
@@ -54,7 +54,7 @@ namespace Inventory.Controllers
         [HttpPost]
         [ApiVersion("1.0")]
         [Route("~/api/v{version:ApiVersion}/AnularOrden")]
-        public OrdenesResponse ManageOrders(int idOrder)
+        public OrdenesResponse ManageOrders([FromBody] int idOrder)
         {
             var item = useCase.ManageOrder(idOrder);
             return item;
