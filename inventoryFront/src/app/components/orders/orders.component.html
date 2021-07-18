@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2 class="mb-4 text-center">Gestionar Ordenes</h2>
+
+    <div class="row mt-5">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <button type="button" (click)="changeView()" class="btn btn-dark btn-lg btn-block mb-5"> {{botonCambio}} </button>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div *ngIf="!guardar">
+        <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">SKU</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orden of ordenes | paginate : {itemsPerPage: 8, currentPage: p}">
+                        <th scope="row"> {{orden.idOrden}}</th>
+                        <td> {{orden.sku}} </td>
+                        <td> {{orden.cantidad}} </td>
+                        <td> {{orden.estado}} </td>
+                        <td> {{orden.fechaIngreso | date:'yyyy/M/dd'}} </td>
+                        <td>
+                            <button *ngIf="!orden.estado.includes('ANULACION')" (click)="anularOrden(orden.idOrden)" type="button" class="btn btn-dark btn-block mr-4">Anular orden <i class="fa fa-ban"></i></button>
+                            <button *ngIf="orden.estado.includes('ANULACION')" type="button" disabled class="btn btn-dark btn-block ">Orden anulada <i class="fa fa-check-square"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+
+    <div *ngIf="guardar">
+        <form ngNativeValidate (ngSubmit)="guardarOrden(f)" #f="ngForm">
+            <div class="form-group row">
+                <label class="col-3 col-form-label"><h3>Producto:</h3> </label>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select class="form-control" [(ngModel)]="orden.fk_sku.sku" required name="producto">
+                              <option class="form-control form-control-lg" *ngFor="let producto of productos" [ngValue]="producto.sku" >
+                                  {{producto.descripcion}}
+                              </option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label"><h3>Cantidad:</h3> </label>
+                <div class="col-9">
+                    <input class="form-control" type="number" min="1" step="1" [(ngModel)]="orden.cantidad" required name="cantidad">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-3 col-form-label"><h3>Status:</h3> </label>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select class="form-control" [(ngModel)]="orden.estado" required name="estado">
+                              <option class="form-control form-control-lg" *ngFor="let estado of estados" [ngValue]="estado.value" >
+                                  {{estado.value}}
+                              </option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-dark btn-lg btn-block">Guardar</button>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </form>
+    </div>
+
+</div>

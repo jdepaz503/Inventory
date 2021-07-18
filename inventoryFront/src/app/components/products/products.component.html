@@ -1,0 +1,67 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2 class="mb-4 text-center">Gestionar Productos</h2>
+
+    <div class="row mt-5">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <button type="button" (click)="changeView()" class="btn btn-dark btn-lg btn-block mb-5"> {{botonCambio}} </button>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div *ngIf="!guardar">
+
+        <form ngNativeValidate (ngSubmit)="buscarProducto(f)" #f="ngForm">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Buscar por SKU (ID) del producto:</label>
+                <div class="col-4">
+                    <input type="number" required min="0" step="1" [(ngModel)]="idProducto" name="id" class="form-control" placeholder="Buscar por Sku">
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-dark btn-block">Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">SKU</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of productos | paginate : {itemsPerPage: 8, currentPage: p}">
+                        <td> {{ producto.sku }}</td>
+                        <td> {{ producto.descripcion}} </td>
+                        <td> {{ producto.stock}} </td>
+                        <button type="button" class="btn btn-dark btn-block mt-2 mr-4" (click)="getProducto(producto.sku)">Editar <i class="fa fa-pencil"></i></button>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+
+    <div *ngIf="guardar">
+        <form ngNativeValidate (ngSubmit)="guardarProducto(f)" #f="ngForm">
+            <div class="form-group row">
+                <label class="col-3 col-form-label">Descripción del producto:</label>
+                <div class="col-9">
+                    <textarea class="form-control" [(ngModel)]="producto.descripcion" required name="descripcion" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-dark btn-lg btn-block">Guardar</button>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </form>
+    </div>
+</div>
